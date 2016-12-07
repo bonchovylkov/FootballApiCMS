@@ -1,0 +1,42 @@
+<div *ngIf="rows.length > 0" >
+    <table class="table table-striped">
+    <thead *ngIf="hasHeader">
+        <tr>
+        <th>#</th>
+        <!--<th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>-->
+
+         <th *ngFor="let title of headerTitles" >{{title.value}}</th>
+         <th *ngIf="isEditable">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of rows">
+            <th scope="row">{{row.index}}</th>
+            <td *ngFor="let col of row.columns">
+                
+                <div *ngIf="col.isEditMode">
+                    <div *ngIf="headerTitles[col.index] && headerTitles[col.index].isDropDownEdit">
+                        <dropdown *ngIf='headerTitles[col.index].editModeValues' [items]='headerTitles[col.index].editModeValues' ></dropdown>
+                        <dropdown *ngIf='headerTitles[col.index].editModeValues==null' [items]='getDDLByIndex(col.index)' ></dropdown>
+                     </div>
+                     <div *ngIf="headerTitles[col.index] && headerTitles[col.index].isDropDownEdit==false">
+                        <input type="text"  [value]=col.value />
+                     </div>
+                     
+                </div>
+                
+                <span *ngIf="col.isEditMode==false">{{col.value}}</span>
+                 
+            </td>
+            <td *ngIf="isEditable && row.isEditable"><button class='btn btn-info' (click)="startEditMode(row.index)"> {{ row.isEditMode? 'Save':'Edit'}}</button></td>
+        </tr>
+       
+    </tbody>
+    </table>
+</div>
+
+<div *ngIf="rows.length == 0" >
+    No data available yet
+    </div>

@@ -1,0 +1,18 @@
+<h2 id='all-teams' class=''>All Teams by country</h2>
+
+<div class='row'>
+  <div class='col-lg-6'> 
+    <dropdown [items]='countries' [hasDefault]='true' (change)="changeCountries($event.target.value)"></dropdown>
+  </div>
+</div>
+<br />
+
+<grid 
+  [rows]='teams' 
+  [hasHeader]='true' 
+  [isEditable] = 'true'
+  [headerTitles]='tableHeaders' >
+</grid>
+<!--<ul>
+  <li *ngFor="let team of teams">{{team.name}}</li>
+</ul>-->
